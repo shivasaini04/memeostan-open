@@ -1,0 +1,38 @@
+{
+  "name": "united-memeostan",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A self-hosted virtual meme nation with signed citizenship, governance, courts and an AI civil service.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "nation:reset": "node scripts/reset-nation.mjs",
+    "probe:enforcement": "node scripts/probe-enforcement.mjs",
+    "probe:legislation": "node scripts/probe-legislation.mjs",
+    "audit:coldstart": "node scripts/audit-coldstart.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "mongodb": "^7.2.0",
+    "next": "^15.5.28",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3",
+    "vitest": "^5.0.5",
+    "vite": "^8.3.5"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.32"
+  }
+}
