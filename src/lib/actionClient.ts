@@ -168,7 +168,7 @@ export async function actAsync(
   announceUpdate();
   if (!optimistic.ok) return optimistic;
 
-  let confirmed: ActionResult = { ok: false, reason: "not sent" };
+  let confirmed: ActionResult = { ok: false, reason: "Connection interrupted. Your action may have reached the nation. Please check the square before retrying." };
   await enqueue(async () => {
     confirmed = await send(envelope, signable, {});
   });
@@ -256,7 +256,7 @@ export async function claimCitizenship(fields: ClaimFields): Promise<ActionResul
   applyAction(envelope);
   announceUpdate();
 
-  let confirmed: ActionResult = { ok: false, reason: "not sent" };
+  let confirmed: ActionResult = { ok: false, reason: "Connection interrupted. Your action may have reached the nation. Please check the square before retrying." };
   await enqueue(async () => {
     confirmed = await send(envelope, signable, { pubKey: keys.publicKey });
   });

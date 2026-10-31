@@ -72,23 +72,26 @@ export function Dashboard() {
 }
 
 export function ActivePoll() {
-  const [timeStr, setTimeStr] = useState("soon™");
+  const [timeStr, setTimeStr] = useState("Loading deadline…");
   const citizen = me();
   const activeProps = governance.allProposals().filter((p) => p.status === "active");
   const topProp = activeProps[0]; // show top active proposal
   const election = elections.getElection();
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const updateDeadline = () => {
       const ms = election.endsAt - Date.now();
       if (ms > 0) {
         const mins = Math.floor(ms / 60000);
         const secs = Math.floor((ms % 60000) / 1000);
-        setTimeStr(`${mins}m ${secs}s`);
+        const hours = Math.floor(mins / 60);
+        setTimeStr(hours ? `${hours}h ${mins % 60}m` : `${mins}m ${secs}s`);
       } else {
         setTimeStr("Resolving...");
       }
-    }, 1000);
+    };
+    updateDeadline();
+    const timer = setInterval(updateDeadline, 1000);
     return () => clearInterval(timer);
   }, [election.endsAt]);
 
@@ -171,7 +174,8 @@ const PARTIES = [
 export function Parties() {
   return (
     <div className="paper p-lime paper-clip">
-      <span className="card-title">🏆 TOP MEME PARTIES</span>
+      <span className="card-title">🎭 FICTIONAL PARTY POSTERS</span>
+      <p className="hand">Satirical campaign art. These percentages are not votes or live results.</p>
       {PARTIES.map((p) => (
         <div key={p.n} style={{ marginBottom: 10 }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontWeight: 700 }}>

@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import WelcomeMission from "./WelcomeMission";
 import { useNation } from "./useNation";
+import { isStateAccount } from "@/lib/systemAccounts";
 import { me, allCitizens } from "@/lib/citizens";
 import { allPosts } from "@/lib/posts";
 import { groupFeed } from "@/lib/feed";
@@ -56,6 +59,7 @@ function Cabinet() {
 export default function App() {
   const { refresh } = useNation();
 
+  const [draft, setDraft] = useState("");
   const citizen = me();
   const posts = allPosts();
 
@@ -88,10 +92,10 @@ export default function App() {
       feed.push(<PostCard key={entry.post.id} post={entry.post} refresh={refresh} />);
     }
     slot += 1;
-    if (slot === 2) feed.push(<ActivePoll key="poll" />);
+
     if (slot > 2 && slot % 3 === 0 && feedFiller.length) feed.push(feedFiller.shift());
   });
-  feed.push(...feedFiller);
+  if (posts.some(p => !isStateAccount(p.author))) feed.push(...feedFiller);
 
   return (
     <>
@@ -111,7 +115,16 @@ export default function App() {
         <div className="cols">
           {/* LEFT — the public square feed */}
           <div className="col-stack">
-            <Composer refresh={refresh} />
+            {!citizen && <ClaimBlock refresh={refresh} />}
+            <WelcomeMission onDraft={(text) => {
+              setDraft(text);
+              requestAnimationFrame(() => {
+                document.getElementById("square-composer")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                document.getElementById("square-composer")?.focus();
+              });
+            }} />
+            {citizen && <Composer refresh={refresh} text={draft} setText={setDraft} />}
+            <ActivePoll />
             <div className="feed-container">
               {posts.length === 0 && (
                 <div className="paper">
@@ -124,7 +137,7 @@ export default function App() {
 
           {/* RIGHT — passport + the situation room */}
           <aside className="col-stack">
-            {citizen ? <Passport citizen={citizen} /> : <ClaimBlock refresh={refresh} />}
+            {citizen && <Passport citizen={citizen} />}
             {citizen && <MyCitizen />}
             <TopMeme />
             <Dashboard />

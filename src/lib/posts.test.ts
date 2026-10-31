@@ -104,3 +104,13 @@ describe("post boosting", () => {
   });
 });
 
+
+describe("enforcement follows enacted law only", () => {
+  it("does not apply the legacy hardcoded logic or grass fines on posting", () => {
+    db.update(s => { s.balances[AUTHOR] = 100; s.proposals = []; });
+    const post = createPost({ author: AUTHOR, text: "evidence of a walk among trees" });
+    expect(ledger.balanceOf(AUTHOR)).toBe(100 + RATES.POST);
+    expect(db.get().citizens[AUTHOR].aura).toBe(1000);
+    expect(post.replies).toEqual([]);
+  });
+});

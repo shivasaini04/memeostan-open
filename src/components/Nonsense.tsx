@@ -95,7 +95,7 @@ export function RizzLevel() {
 export function CitizenRights() {
   return (
     <div className="blk b-yellow pin">
-      <span className="blk-title">📜 CITIZEN RIGHTS (real)</span>
+      <span className="blk-title">🎭 FICTIONAL CITIZEN RIGHTS</span>
       <ol className="hand" style={{ fontSize: 16, paddingLeft: 20, lineHeight: 1.5 }}>
         <li>Free WiFi</li><li>Nap anytime</li><li>Post cringe</li>
         <li>No consequences</li><li>Be dumb</li><li>IDK anymore 🙂</li>
@@ -430,7 +430,7 @@ export function TodaysMood() {
 export function AIAdvisor() {
   return (
     <div className="blk b-dark">
-      <span className="blk-title" style={{ color: "var(--purple)" }}>🤖 AI ADVISOR (always right)</span>
+      <span className="blk-title" style={{ color: "var(--purple)" }}>🎭 FAKE AI ADVISOR</span>
       <p className="pixel" style={{ fontSize: 18, color: "var(--lime)", lineHeight: 1.4 }}>
         &gt; ANALYZING...<br />&gt; THINKING...<br />&gt; CONCLUSION: <b>idk</b> 🤷
       </p>
@@ -485,7 +485,7 @@ export function DoNotPress() {
 export function MapOfMemeostan() {
   return (
     <div className="blk b-paper tape t-cyan">
-      <span className="blk-title" style={{ color: "#181018" }}>🗺️ MAP OF MEMEOSTAN (real)</span>
+      <span className="blk-title" style={{ color: "#181018" }}>🎭 ILLUSTRATED MEME MAP</span>
       <div className="hand" style={{ fontSize: 16, lineHeight: 1.7 }}>
         🏙️ Brainrot City &nbsp; 🐮 Ohio (the bad place)<br />
         😏 Rizzland &nbsp; 😴 Napistan<br />

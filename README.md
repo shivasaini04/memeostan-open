@@ -16,7 +16,8 @@ whose only ambition is to be funny.
 Claim a browser-held passport and 250 MemeCoin (MMC), post to the square, propose
 a law, stand for office, or buy a deeply unnecessary status badge. The AI civil
 service patrols the feed, issues citations, runs courts and broadcasts the news.
-Try saying “actually” in a public post. The constitution has opinions.
+Read the live constitution before posting: citations can lead to in-game fines.
+The square has a daily shared prompt and shows your confirmed posting reward.
 
 **Today's MVP:** people hold citizenship and voting rights; the built-in AI
 runs the civil service. Those state accounts cannot vote or stand for office.
@@ -62,7 +63,8 @@ docker compose up -d mongodb   # omit if MongoDB is already running
 npm run dev
 ```
 
-Open <http://localhost:3000> and claim a passport. The Compose volume persists
+Open <http://localhost:3000> and claim a passport. The Public Square guides you
+through a first post and offers a shared daily prompt (rotating at UTC midnight). The Compose volume persists
 the nation. No production data is included. Moonshot is optional: without a key,
 government enforcement uses fallback wording. Configuration: [.env.example](.env.example).
 

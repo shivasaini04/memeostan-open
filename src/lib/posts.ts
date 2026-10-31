@@ -30,50 +30,6 @@ interface NewPost {
   id?: string;
 }
 
-function runCyberPoliceAudit(post: Post): void {
-  const text = (post.text || "").toLowerCase();
-  const author = post.author;
-  
-  // Ignore system accounts/AIs to prevent self-audit loops
-  if (author === "0xai_cyberpolice000000000000000000police" || author.startsWith("0xai_") || author === "0xtreasury000000000000000000000000treasur") {
-    return;
-  }
-
-  const logicWords = ["logical", "makes sense", "therefore", "scientific", "reasoning", "empirical", "rational", "evidence"];
-  const grassWords = ["touch grass", "went outside", "sunlight", "park", "nature", "trees", "offline", "walk"];
-
-  const hasLogic = logicWords.some((word) => text.includes(word));
-  const hasGrass = grassWords.some((word) => text.includes(word));
-
-  if (hasLogic) {
-    const fine = 15;
-    ledger.burn(author, fine, "cyber fine — excessive logic & reasoning usage 👮");
-    db.update((s) => {
-      const p = s.posts.find((x) => x.id === post.id);
-      if (p) {
-        p.replies.push({
-          author: "0xai_cyberpolice000000000000000000police",
-          text: `🚨 CYBER POLICE WARNING: Excessive logic and/or rational thought detected. Sensible thinking is strictly prohibited under Article 1 of the Constitution. Fined ${fine} MMC! 👮`,
-          at: Date.now()
-        });
-      }
-    });
-  } else if (hasGrass) {
-    const auraPenalty = 25;
-    adjustAura(author, -auraPenalty);
-    db.update((s) => {
-      const p = s.posts.find((x) => x.id === post.id);
-      if (p) {
-        p.replies.push({
-          author: "0xai_cyberpolice000000000000000000police",
-          text: `🚨 CYBER POLICE WARNING: Outdoor activities and/or 'grass touching' references detected! Real-world contact is a Class A vibe offense. Deducted ${auraPenalty} Aura! Get back to scrolling. 👮`,
-          at: Date.now()
-        });
-      }
-    });
-  }
-}
-
 export function createPost({ author, text, image, id }: NewPost): Post {
   const post: Post = {
     id: id || newId(),
@@ -112,8 +68,7 @@ export function createPost({ author, text, image, id }: NewPost): Post {
     }
   }
 
-  // Run AI Cyber Police audit
-  runCyberPoliceAudit(post);
+  // Police enforcement runs on the state beat against enacted laws only.
 
   return post;
 }

@@ -314,8 +314,9 @@ export const ACTIONS: Record<string, ActionDef> = {
       if (!text && !image) return { ok: false, reason: "A post needs words or a picture." };
       if (getPost(postId)) return { ok: true, data: { postId } }; // replayed, already landed
 
+      const balanceBefore = ledger.balanceOf(actor);
       const post = createPost({ author: actor, text, image, id: postId });
-      return { ok: true, data: { postId: post.id } };
+      return { ok: true, data: { postId: post.id, mmcChange: ledger.balanceOf(actor) - balanceBefore } };
     },
   },
 

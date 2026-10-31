@@ -26,6 +26,8 @@ export default function ClaimBlock({ refresh }: { refresh: () => void }) {
       const res = await claimCitizenship({ username: username.trim(), faction, pfp, city, party });
       if (!res.ok) alert(res.reason || "The passport office rejected that. Try again?");
       refresh();
+    } catch {
+      alert("The passport office could not be reached. Please try again; your handle is still here.");
     } finally {
       setClaiming(false);
     }
@@ -51,15 +53,20 @@ export default function ClaimBlock({ refresh }: { refresh: () => void }) {
 
       {!showImport ? (
         <>
-          <label className="hand" style={{ fontSize: 16 }}>your handle</label>
+          <label htmlFor="citizen-handle" className="hand" style={{ fontSize: 16 }}>your handle</label>
           <input
             value={username}
             maxLength={24}
+            id="citizen-handle"
+            aria-label="Your citizen handle"
+            autoComplete="nickname"
             placeholder="SigmaScroller420"
             onChange={(e) => setUsername(e.target.value)}
             style={{ marginTop: 4, marginBottom: 10 }}
           />
 
+          <details style={{ marginBottom: 12 }}>
+          <summary className="hand" style={{ cursor: "pointer" }}>Customize my city, faction and portrait (optional)</summary>
           <label className="hand" style={{ fontSize: 16 }}>faction (pick your brainrot)</label>
           <select value={faction} onChange={(e) => setFaction(e.target.value)} style={{ marginTop: 4, marginBottom: 10, width: "100%", padding: "4px 8px", fontSize: 13, border: "var(--b)", background: "var(--paper)", color: "var(--ink)", fontWeight: 700, borderRadius: "6px" }}>
             {FACTIONS.map((f) => (<option key={f} value={f}>{f}</option>))}
@@ -131,6 +138,8 @@ export default function ClaimBlock({ refresh }: { refresh: () => void }) {
               </button>
             ))}
           </div>
+
+          </details>
 
           <button
             className="btn lime"

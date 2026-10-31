@@ -285,3 +285,23 @@ describe("world.tick", () => {
     expect(second.commit).toBe(false);
   });
 });
+
+describe("confirmed posting receipt", () => {
+  it("reports the actual city-adjusted reward and does not mint again on replay", () => {
+    const before = state.balances[ALICE];
+    const result = run("post.create", { id: "post_receipt123", text: "the ministry needs more tiny pillows" });
+    expect(result.ok).toBe(true);
+    expect(result.data?.mmcChange).toBe(state.balances[ALICE] - before);
+    expect(Number(result.data?.mmcChange)).toBeGreaterThan(RATES.POST);
+    const after = state.balances[ALICE];
+    expect(run("post.create", { id: "post_receipt123", text: "the ministry needs more tiny pillows" }).ok).toBe(true);
+    expect(state.balances[ALICE]).toBe(after);
+  });
+  it("reports the actual negative result for a spam-taxed post", () => {
+    const before = state.balances[ALICE];
+    const result = run("post.create", { id: "post_spam123", text: "k" });
+    expect(result.ok).toBe(true);
+    expect(result.data?.mmcChange).toBe(state.balances[ALICE] - before);
+    expect(result.data?.mmcChange).toBe(-RATES.SPAM_TAX);
+  });
+});

@@ -1220,3 +1220,21 @@ input:focus, textarea:focus, select:focus { box-shadow: var(--hard-sm); }
   .paper { padding: 12px; }
   .card-title, .blk-title { font-size: 13px; }
 }
+
+/* First-visit actions precede the feed and decoration at every viewport. */
+.mission-steps { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.mission-steps li { border: 2px solid var(--ink); padding: 6px 9px; background: var(--paper); font-size: 13px; }
+.mission-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.mission-actions .btn { white-space: normal; }
+.landing-main { padding-bottom: 60px; }
+.landing-welcome { display: flex; gap: 24px; align-items: center; }
+.landing-welcome > div { flex: 1; min-width: 0; }
+.landing-mascot { width: 230px; height: auto; object-fit: contain; }
+.landing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 24px; }
+@media (max-width: 700px) {
+  .landing-mascot { display: none; }
+  .landing-grid { grid-template-columns: 1fr; }
+  .mission-actions .btn { width: 100%; text-align: center; }
+}
+.landing-main p { line-height: 1.5; margin: 10px 0 16px; }
+.landing-main .btn { display: inline-flex; align-items: center; text-decoration: none; }
